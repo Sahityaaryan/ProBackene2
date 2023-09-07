@@ -22,6 +22,33 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 
+
+const Data =[
+  {
+    name:"sahitya",
+    class:"ece",
+  },
+  {
+    name: "honey",
+    class: "ece",
+  }
+]
+
+
+app.get('/api/v1/:name',(req,res)=>{
+
+  let flag = true;
+  let {name} = req.params;
+  Data.forEach((ele)=>{
+    if(ele.name === `${name}`) {
+      res.status(200).json({...ele});
+      flag = false;
+    }
+
+  })
+  if (flag) res.status(404).send("Not Found!!!");
+})
+
 //Routes
 
 app.get("/",(req,res)=>{
